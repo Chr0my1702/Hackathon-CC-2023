@@ -1,7 +1,18 @@
 import ursina
+from ursina import * 
 
 app = ursina.Ursina()
 
+# Test Cube
+
+
+class Test_cube(Entity):
+	def __init__(self):
+		super().__init__(
+			parent=scene,
+			model='cube',
+			texture='white_cube',
+			rotation=Vec3(45, 45, 45))
 
 class Player(ursina.Entity):
     def __init__(self):
@@ -21,5 +32,5 @@ class Player(ursina.Entity):
 
 
 player = Player()
-
+cube = Test_cube()
 app.run()
