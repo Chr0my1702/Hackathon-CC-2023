@@ -23,8 +23,3 @@ class Player(ursina.Entity):
 player = Player()
 
 app.run()
-
-
-#copilot: How do i make a requirement.txt file?
-
-#me: pip freeze > requirements.txt
