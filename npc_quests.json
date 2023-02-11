@@ -1,1 +1,32 @@
-{"npc_task": "Get me some Salt for 10 ducats, maybe go to the sea and make salt! I don\u2019t know it\u2019s your job", "reward": 10, "chemical": "NaCl", "hint": ""}, {"npc_task": "I need some hydrogen peroxide for cleaning my house, but make sure it's the 35% solution. I'll give you 150 ducats for it.", "reward": 150, "chemical": "H2O2", "hint": ""}, {"npc_task": "I'm making homemade soap and I'm in need of some potassium hydroxide. Can you get me a small container for 200 ducats?", "reward": 200, "chemical": "KOH", "hint": ""}
+[
+  {
+    "npc_task": "Get me some Salt for 10 ducats, maybe go to the sea and make salt! I don\u2019t know it\u2019s your job",
+    "reward": 10,
+    "chemical": "NaCl",
+    "hint": ""
+  },
+  {
+    "npc_task": "I need some hydrogen peroxide for cleaning my house, but make sure it's the 35% solution. I'll give you 150 ducats for it.",
+    "reward": 150,
+    "chemical": "H2O2",
+    "hint": ""
+  },
+  {
+    "npc_task": "I'm making homemade soap and I'm in need of some potassium hydroxide. Can you get me a small container for 200 ducats?",
+    "reward": 200,
+    "chemical": "KOH",
+    "hint": ""
+  },
+  {
+    "npc_task": "I'm planning on making my own fireworks for the 4th of July. Can you get me some aluminum powder and 300 ducats should cover it.",
+    "reward": 300,
+    "chemical": "Al",
+    "hint": ""
+  },
+  {
+    "npc_task": "I\u2019m making cake. I need some baking soda, or as your nerdy face likes to call it Sodium bicarbonate. I\u2019ll give you a slice of cake and 50 ducats. Actually nevermind, just 50 ducats.",
+    "reward": 50,
+    "chemical": "NaHCO\u2083",
+    "hint": ""
+  }
+]

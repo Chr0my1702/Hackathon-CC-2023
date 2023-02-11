@@ -1,4 +1,5 @@
 import json
+import re
 
 
 def add_quest(npc_task, reward, chemical, hint):
@@ -19,12 +20,24 @@ def add_quest(npc_task, reward, chemical, hint):
         json.dump(data, file)
 
 
+def predict_reward(npc_task):
+    # Use a regular expression to extract the first number from the string
+    match = re.search(r"\b\d+\b", npc_task)
+    if match:
+        predicted_reward = int(match.group(0))
+        use_predicted = input(
+            f"The predicted reward is {predicted_reward}. Use this value? (y/n) ")
+        if use_predicted.lower() == "y":
+            return predicted_reward
+    return int(input("Enter the reward for completing the task: "))
+
+
 # Keep prompting the user to enter quests until they choose to stop
 while True:
     npc_task = input("Enter the NPC's task: ")
     if npc_task == "":
         break
-    reward = int(input("Enter the reward for completing the task: "))
+    reward = predict_reward(npc_task)
     chemical = input("Enter the chemical needed: ")
     hint = input("Enter a hint for the task: ")
 
@@ -34,9 +47,4 @@ while True:
 with open("npc_quests.json", "r") as file:
     data = json.load(file)
 
-for i, quest in enumerate(data):
-    print(f"Quest {i + 1}:")
-    print(f"  Task: {quest['npc_task']}")
-    print(f"  Reward: {quest['reward']}")
-    print(f"  Chemical: {quest['chemical']}")
-    print(f"  Hint: {quest['hint']}")
+print(json.dumps(data, indent=2))
