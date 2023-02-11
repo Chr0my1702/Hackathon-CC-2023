@@ -1,5 +1,7 @@
 import pyttsx3
 from gtts import gTTS
+
+
 def auto_format(text, max_length=45, separator=' '):
     words = text.split(separator)
     new_text = ''
@@ -15,8 +17,7 @@ def auto_format(text, max_length=45, separator=' '):
 
 def speak_text(text):
 
-	engine = pyttsx3.init()
-	engine.say(text)
-
-	engine.setProperty('voice', 2)
-	engine.runAndWait()
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.setProperty('voice', 2)
+    engine.runAndWait()

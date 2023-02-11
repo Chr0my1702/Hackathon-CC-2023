@@ -16,9 +16,6 @@ window.fps_counter.enabled = True
 window.exit_button.visible = False
 
 
-
-
-
 NPC_Talk = Text(text="", enabled=False, background=True, origin=(
     0, -1), position=(0, 0), color=color.white, background_color=color.white)
 agree = Button(text="ok!", parent=NPC_Talk,  enabled=False, size=(.3, .1))
@@ -102,9 +99,6 @@ class Hand(Entity):
 
     def passive(self):
         self.position = Vec2(0.4, -0.6)
-
-
-
 
 
 def npc_action():
