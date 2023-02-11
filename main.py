@@ -1,6 +1,4 @@
-import pyttsx3
 import threading
-from gtts import gTTS
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from funcs import *
@@ -106,13 +104,7 @@ class Hand(Entity):
         self.position = Vec2(0.4, -0.6)
 
 
-def speak_text(text):
 
-	engine = pyttsx3.init()
-	engine.say(text)
-
-	engine.setProperty('voice', 2)
-	engine.runAndWait()
 
 
 def npc_action():
