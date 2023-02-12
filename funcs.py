@@ -1,3 +1,4 @@
+import pygame
 import pyttsx3
 from gtts import gTTS
 import json
@@ -55,3 +56,15 @@ def set_quest(money_text, objective_text, level, NPC_Talk):
     update_objective(objective_text, "Get " + chemical)
     update_money(money_text, reward)
     NPC_Talk.text = auto_format(task)
+    return task, reward, chemical, hint
+
+
+def play_loop_music():
+    pygame.init()
+    pygame.mixer.init()
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.load("assets/loopabledown.mid")
+    pygame.mixer.music.play(-1)
+
+#make requirements.txt
+#pip freeze > requirements.txt

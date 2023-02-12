@@ -22,16 +22,19 @@ agree = Button(text="ok!", parent=NPC_Talk,  enabled=False, size=(.3, .1))
 disagree = Button(text="no", parent=NPC_Talk, enabled=False, size=(.3, .1))
 agree.text_entity.size = 1
 disagree.text_entity.size = 1
+in_task = False
 
 
 def update():
+ 
 	global block_pick
-
+    
 	if held_keys['left mouse'] or held_keys['right mouse']:
 		hand.active()
 	else:
 		hand.passive()
 
+    
 	if NPC_Talk.enabled == True:
 
 		#lock player movement
@@ -50,6 +53,7 @@ def update():
 		if mouse.visible == True:
 			mouse.visible = False
 			mouse.locked = True
+	inventory.update()
 
 
 class Voxel(Button):
@@ -112,11 +116,45 @@ class Hand(Entity):
         self.position = Vec2(0.4, -0.6)
 
 
-in_task = False
+class Inventory:
+    def __init__(self):
+        self.inventory = ["KOH", "H2O2"]
+        self.holding = None
+        self.text = Text(text="", origin=(
+            0, 0), position=(0,0), scale=2)
+
+    def pick_up(self, item):
+        if len(self.inventory) < 10:  # limit inventory size to 10 items
+            self.inventory.append(item)
+            print(f"Picked up {item}")
+        else:
+            print("Inventory is full")
+
+    def drop(self, item):
+        if item in self.inventory:
+            self.inventory.remove(item)
+            print(f"Dropped {item}")
+        else:
+            print(f"{item} not found in inventory")
+
+    def store(self):
+        print("Inventory:", self.inventory)
+
+    def switch(self, item):
+        if item in self.inventory:
+            self.holding = item
+            holding.set_object(item)
+            print(f"Switched to holding {item}")
+        else:
+            print(f"{item} not found in inventory")
+
+    def update(self):
+        self.text.text = f"Holding: {self.holding}\nPress 'Tab' to switch"
 
 
 def npc_action():
     global in_task
+    global task, reward, chemical, hint
     NPC_Talk.enabled = False
     text_size = NPC_Talk.world_scale
     button1_pos = ((NPC_Talk.position.x - text_size.x / 2 + .25)
@@ -146,8 +184,7 @@ def npc_action():
     disagree.on_click = Func(setattr, NPC_Talk, 'enabled', False)
 
     if player.position.x >= npc.position.x - 4 and player.position.x <= npc.position.x + 4 and player.position.z >= npc.position.z - 4 and player.position.z <= npc.position.z + 4:
-        print(in_task)
-        print(holding.get_object())
+
         if in_task == False:
             NPC_Talk.enabled = True
             agree.enabled = True
@@ -156,18 +193,20 @@ def npc_action():
             thread = threading.Thread(target=speak_text, args=(NPC_Talk.text,))
             thread.start()
             NPC_Talk.background = True
-        elif in_task == True and holding.get_object() != "potassium hydrochloride":
+        elif in_task == True and holding.get_object() != chemical:
             NPC_Talk.text = "hmm, doesnt look like you have the thing i need in your hand right now, come back when you have it!"
             NPC_Talk.enabled = True
 
             invoke(setattr, NPC_Talk, 'enabled', False, delay=5)
-        elif in_task == True and holding.get_object() == "potassium hydrochloride":
+        elif in_task == True and holding.get_object() == chemical:
             NPC_Talk.text = "Oh, you have the thing i need! Thank you so much! Here is your money!"
             NPC_Talk.enabled = True
             invoke(setattr, NPC_Talk, 'enabled', False, delay=5)
 
         else:
+            print("elsed")
             pass
+
 
 
 # Define the objective text and money text
@@ -193,10 +232,13 @@ for z in range(30):
     for x in range(30):
         voxel = Voxel(position=(x, 0, z))
 
+task, reward, chemical, hint = str, str,str,str
 
 def inisialise():
-	set_quest(money_text, objective_text, 2, NPC_Talk)
-	holding.set_object("none")
+    global task, reward, chemical, hint
+    task, reward, chemical, hint = set_quest(money_text, objective_text, 2, NPC_Talk)
+    holding.set_object("none")
+    play_loop_music()
 
 
 player = FirstPersonController()
@@ -205,6 +247,14 @@ player.set_position((10, 0, 10))
 sky = Sky()
 hand = Hand()
 holding = Holding_Object()
+inventory = Inventory()
+
+
+def input(key):
+    if key == 'tab':
+        inventory.switch(inventory.inventory[0] if inventory.holding !=
+                         inventory.inventory[0] else inventory.inventory[1])
+
 
 inisialise()
 app.run()
