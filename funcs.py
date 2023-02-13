@@ -64,6 +64,10 @@ def play_loop_music():
     pygame.mixer.init()
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.load("assets/loopabledown.mid")
+
+
+    #set 
+
     pygame.mixer.music.play(-1)
 
 #make requirements.txt

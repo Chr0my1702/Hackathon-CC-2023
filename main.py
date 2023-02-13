@@ -5,7 +5,7 @@ from funcs import *
 
 app = Ursina()
 textures = {
-    'sky': load_texture('assets/skybox.png'),
+    'sky': load_texture('assets/mid_day.tiff'),
 }
 sounds = {
     'punch': Audio('assets/punch_sound', loop=False, autoplay=False),
@@ -85,7 +85,7 @@ class Sky(Entity):
             parent=scene,
             model='sphere',
             texture=textures['sky'],
-            scale=150,
+            scale=1000,
             double_sided=True)
 
 
@@ -184,7 +184,7 @@ def npc_action():
     disagree.on_click = Func(setattr, NPC_Talk, 'enabled', False)
 
     if player.position.x >= npc.position.x - 4 and player.position.x <= npc.position.x + 4 and player.position.z >= npc.position.z - 4 and player.position.z <= npc.position.z + 4:
-
+        print("Currently: " + holding.get_object() + " We need: " + chemical)
         if in_task == False:
             NPC_Talk.enabled = True
             agree.enabled = True

@@ -1,0 +1,10 @@
+[
+  {
+    "chemical": "NaCl",
+    "asset": "assets/NaCl.obj"
+  },
+  {
+    "chemical": "H2O2",
+    "asset": "assets/H2O2.obj"
+    }
+]
