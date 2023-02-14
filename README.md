@@ -1,34 +1,23 @@
-# hackathon-2023
-
-Requirements
-To run this code, you need to have the following software installed on your machine:
-
-Python 3
-gTTS
-playsound
-Ursina
-Installation
-Install Python 3 from the official website (https://www.python.org/downloads/).
-
-Install the required packages by running the following command in your terminal or command prompt:
+# My Hackathon 2023 Project
 
 
-pip install gTTS playsound Ursina
+## Installation:
+To install this game, follow these steps:
 
+Clone the repository: ```git clone https://github.com/Chr0my1702/Hackathon-CC-2023```
 
-Running the Code
-Download the code to your local machine.
+CD into Hackathon-CC-2023 folder
 
-Open a terminal or command prompt and navigate to the directory where you saved the code.
+Install the required packages: ```pip install -r requirements.txt```
 
-Run the following command:
-
-python main.py
+To run the project, simply execute the main.py file using the following command: `python main.py`
 
 The code should now be running and you should be able to interact with the game.
 
 Note: If you get a PermissionError when trying to play the speech, make sure to run the code as an administrator or to specify a different directory where you have write permission.
 
 
-Flowcharts:
+
+
+## Flowcharts:
 ![image](https://user-images.githubusercontent.com/49107678/218781097-42a8888c-3f42-498f-bafe-3e949a299b24.png)
