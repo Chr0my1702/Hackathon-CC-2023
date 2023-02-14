@@ -255,9 +255,9 @@ def npc_action():
             NPC_Talk.enabled = True
             agree.enabled = True
             disagree.enabled = True
-            
-            #TODO: GET SPEECH TO WORK
-            threading.Thread(target=speak_text, args=(NPC_Talk.text)).start()
+
+            thread = threading.Thread(target=speak_text, args=(unformat(NPC_Talk.text),))
+            thread.start()
 
         elif in_task == True and holding.get_object() != chemical:
 
