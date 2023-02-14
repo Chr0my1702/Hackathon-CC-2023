@@ -20,21 +20,20 @@ window.exit_button.visible = False
 
 NPC_Talk = Text(text="", enabled=False, background=True, origin=(
     0, -1), position=(0, 0), color=color.white, background_color=color.white)
-
 mistake_text = Text(text="hmm, doesnt look like you have the thing i need in your hand right now, come back when you have it!", background=True, origin=(
     0, -1), position=(0, 0), color=color.white, background_color=color.white, enabled=False)
 thanking = Text(text="Oh, you have the thing i need! Thank you so much! Here is your money!", background=True, origin=(
     0, -1), position=(0, 0), color=color.white, background_color=color.white, enabled=False)
 
+
 agree = Button(text="ok!", parent=NPC_Talk,  enabled=False, size=(.3, .1))
 disagree = Button(text="no", parent=NPC_Talk, enabled=False, size=(.3, .1))
-mistake = Button(text="My mistake!",
-                 enabled=False, size=(.3, .1), background=True)
+mistake = Button(text="My mistake!", enabled=False, size=(.3, .1), background=True)
 thank = Button(text="No worries", enabled=False, size=(.3, .1))
-# Define the objective text and money text
+
+
 hint_popup = Text(text="Press H for a hint with the quest!", position=(
 	-0.3, .45), origin=(0, 0), color=color.white, scale=1, background=True)
-#BIG hint text
 hint_text = Text("HINT HERE", position=(
 	0, 0), origin=(0, 0), color=color.white, scale=1, background=True, enabled=False)
 objective_text = Text(text="Objective: Get Potassium hydrochloride", position=(
@@ -195,33 +194,34 @@ def npc_action():
     global in_task
     global task, reward, chemical, hint
 
+
     def set_in_task():
         global in_task
         in_task = not in_task
+
 
     def disable_talk():
         setattr(NPC_Talk, 'enabled', False)
         if in_task: pass
         else:           	set_in_task()
 
+
     def mistake_button():
         setattr(mistake_text, 'enabled', False)
         setattr(mistake, 'enabled', False)
 
-    def disable_npc():
-
-        if NPC_Talk.enabled == True:
-            NPC_Talk.enabled = False
-            mistake.enabled = False
 
     def thank_button():
         setattr(thanking, 'enabled', False)
         setattr(thank, 'enabled', False)
+   
+   
     text_size = NPC_Talk.world_scale
     button1_pos = ((NPC_Talk.position.x - text_size.x / 2 + .25)
                    * 0.03, (NPC_Talk.position.y - text_size.y / 2 - .05)*0.01)
     button2_pos = ((NPC_Talk.position.x + text_size.x / 2 - .25)
                    * 0.03, (NPC_Talk.position.y - text_size.y / 2 - .05)*0.01)
+
 
     agree.text = "Ok!"
     agree.scale = (.3, .1)
@@ -229,11 +229,13 @@ def npc_action():
     agree.position = button1_pos
     agree.on_click = Func(disable_talk)
 
+
     disagree.text = "No"
     disagree.scale = (.3, .1)
     disagree.text_entity.scale = (0.16666, 0.5)
     disagree.position = button2_pos
     disagree.on_click = Func(setattr, NPC_Talk, 'enabled', False)
+
 
     mistake.scale = (.3, .1)
     mistake.text_entity.scale = (0.16666, 0.5)
@@ -241,18 +243,22 @@ def npc_action():
     	(button1_pos[0] + button2_pos[0]) / 2), ((button1_pos[1] + button2_pos[1]) / 2)
     mistake.on_click = Func(mistake_button)
 
+
     thank.scale = (.3, .1)
     thank.text_entity.scale = (0.16666, 0.5)
     thank.position = (
     	(button1_pos[0] + button2_pos[0]) / 2), ((button1_pos[1] + button2_pos[1]) / 2)
-    thank.on_click = Func(thank_button)  # SET TO ADD MONEY
+    thank.on_click = Func(thank_button)
 
-    #if Player is currently in the range of the NPC
+
+
     if player.position.x >= npc.position.x - 4 and player.position.x <= npc.position.x + 4 and player.position.z >= npc.position.z - 4 and player.position.z <= npc.position.z + 4:
+        
         if in_task == False:
 
             NPC_Talk.background = True
             NPC_Talk.enabled = True
+
             agree.enabled = True
             disagree.enabled = True
 
@@ -265,24 +271,25 @@ def npc_action():
             mistake.enabled = True
 
         elif in_task == True and holding.get_object() == chemical:
+
             inventory.drop(chemical)
+
             thanking.enabled = True
             thank.enabled = True
 
             clear_task(objective_text=objective_text, money_text=money_text)
+
             ammend_config("money", str(int(get_config("money")) + reward))
             ammend_config("level", str(int(get_config("level"))+1))
-            ammend_config("completed_level", str(
-            	int(get_config("completed_level"))+1))
+            ammend_config("completed_level", str(int(get_config("completed_level"))+1))
+
             update_level()
+
             set_in_task()
 
 
-
-
-npc_model = load_model("npc.glb")
 npc = Entity(
-    model=npc_model,
+    model=load_model("npc.glb"),
     position=(10, .25, 15),
     scale=1.75,
     rotation=(0, 0, 0),
@@ -294,10 +301,11 @@ for z in range(30):
     for x in range(30):
         voxel = Voxel(position=(x, 0, z))
 
+
 task, reward, chemical, hint = str, str,str,str
 
-def update_level():
 
+def update_level():
     global task, reward, chemical, hint
     task, reward, chemical, hint = set_quest(
     	money_text, objective_text, int(get_config("level")), NPC_Talk)
@@ -305,9 +313,11 @@ def update_level():
 
 def inisialise():
     update_level()
+
     holding.set_object("Nothing")
-    #set money to get from config
+
     money_text.text = "Money: " + get_config("money") + "₫"
+
     play_loop_music()
 
 
@@ -322,17 +332,20 @@ inventory = Inventory()
 
 def input(key):
     if key == 'tab':
-        current_index = inventory.inventory.index(
-            inventory.holding) if inventory.holding in inventory.inventory else -1
+        current_index = inventory.inventory.index(inventory.holding) if inventory.holding in inventory.inventory else -1
         next_index = (current_index + 1) % len(inventory.inventory)
         inventory.switch(inventory.inventory[next_index])
-    #if pressed H or h, show hint
+
     if key == 'h' or key == 'H':
+
         if hint_text.enabled == False:
+
             hint_popup.text = "Press H to hind the hint!"
             hint_text.text = hint
             hint_text.enabled = True
+
         elif hint_text.enabled == True:
+
             hint_popup.text = "Press H for a hint with the quest!"
             hint_text.text = hint
             hint_text.enabled = False
