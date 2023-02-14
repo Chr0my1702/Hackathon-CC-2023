@@ -19,5 +19,8 @@ Note: If you get a PermissionError when trying to play the speech, make sure to 
 
 
 
-## Flowcharts:
+## Images:
+11/02
+![image](https://user-images.githubusercontent.com/49107678/218856958-cc1a219d-fee8-4670-a6cc-19fcb5cdfdf2.png)
+13/02
 ![image](https://user-images.githubusercontent.com/49107678/218781097-42a8888c-3f42-498f-bafe-3e949a299b24.png)
