@@ -26,7 +26,7 @@
   {
     "npc_task": "I\u2019m making cake. I need some baking soda, or as your nerdy face likes to call it Sodium bicarbonate. I\u2019ll give you a slice of cake and 50 ducats. Actually nevermind, just 50 ducats.",
     "reward": 50,
-    "chemical": "NaHCO\u2083",
+    "chemical": "NaHCO3",
     "hint": ""
   }
 ]
