@@ -2,6 +2,18 @@
  
 Welcome to "Chemical Quest"! This game is for those who want to experience the thrill of working with elements and compounds. The game has 8 levels, each with lots of tasks to complete. The main NPC, Yohan, is a villager who hires you to complete chemical tasks for him. As you progress through the levels, you will encounter new elements and compounds that you must use to complete the tasks. The game also features a merchant where you can buy necessary items to help you along the way. You will learn about acids, bases, salts, and many more. The apparatuses used within the game are designed to help GCSE level students understand required practicals within the game, making it a fun way to learn about elements. Get ready to embark on a chemical adventure and become a master of the elements!
 
+Features:
+
++ Levels: Multiple levels with increasing difficulty to progress through
++ Text-to-speech: In-game tool for audio assistance with tasks and instructions
++ Inventory: System for managing acquired elements and compounds
++ Custom tasks: Support for user-submitted tasks and challenges to keep the game fresh and exciting.
++ Virtual Lab Equipment: Access to a variety of virtual lab equipment and apparatuses to assist with completing chemical tasks and experiments
++ Elemental Encyclopedia: In-game reference guide for learning about the properties and uses of different elements and compounds
++ Currency System: In-game currency to purchase necessary elements, compounds, and equipment
++ Crafting System: Ability to craft and create new elements and compounds from acquired materials
++ Storyline: A captivating storyline that takes the player on a journey through the world of chemistry and beyond.
+
 And be prepared for the unexpected! Yohan sometimes requests that you go off the beaten path and acquire certain compounds through less conventional means, such as stealing from other villagers. These compounds can be used to create greater products and complete more difficult tasks. So, tread carefully and use your cunning and knowledge of chemical properties to complete these risky missions. With the right skills and a bit of luck, you'll come out on top and become a true master of the elements.
 
 I used Ursina, a game engine for Python, to create my game and although it was a challenging experience, it helped me to develop my problem-solving skills and learn more about game development concepts. However, I advise that it's not recommended for production-level games due to Python's limitations, and there are better-suited game engines and programming languages that can make the development process more efficient and less time-consuming.
