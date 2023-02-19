@@ -2,3 +2,4 @@ ursina==5.2.0
 pygame==2.0.2    
 pyttsx3==2.90
 gTTS==2.3.1
+configparser==5.3.0

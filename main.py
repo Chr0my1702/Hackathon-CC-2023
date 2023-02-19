@@ -17,6 +17,8 @@ block_pick = 1
 window.fps_counter.enabled = True
 window.exit_button.visible = False
 
+central_text = Text(text="", enabled=False, background=True, origin=(
+    0, -1), position=(0, 0), color=color.white, background_color=color.white)
 
 NPC_Talk = Text(text="", enabled=False, background=True, origin=(
     0, -1), position=(0, 0), color=color.white, background_color=color.white)
@@ -48,6 +50,7 @@ in_task = False
 
 
 def update():
+
 	global block_pick
 
 	if money_text.text != "Money: " + str(get_config("money")) + "₫":
@@ -57,11 +60,10 @@ def update():
 	else:
 		hand.passive()
 
-    
 	if NPC_Talk.enabled == True or mistake_text.enabled == True or thanking.enabled == True:
 
 		#lock player movement
-		player.set_position((10, .25, 13))
+		player.set_position((35, 0, 35))
 		player.rotation = (0, 0, 0)
 
 		if mouse.visible == False:
@@ -141,7 +143,7 @@ class Hand(Entity):
 
 class Inventory:
     def __init__(self):
-        self.inventory = ["H2O2", "KOH", "NaCl"]
+        self.inventory = []
         self.holding = None
         self.inventory.append("Nothing")
         self.text = Text(text="", position=(-.84, -.35),
@@ -153,7 +155,6 @@ class Inventory:
             print(f"Picked up {item}")
         else:
             print("Inventory is full")
-
 
     def drop(self, item):
         if item in self.inventory:
@@ -168,9 +169,6 @@ class Inventory:
             self.update()
         else:
             print(f"{item} not found in inventory")
-
-
-
 
     def store(self):
         print("Inventory:", self.inventory)
@@ -194,34 +192,28 @@ def npc_action():
     global in_task
     global task, reward, chemical, hint
 
-
     def set_in_task():
         global in_task
         in_task = not in_task
 
-
     def disable_talk():
         setattr(NPC_Talk, 'enabled', False)
-        if in_task: pass
-        else:           	set_in_task()
-
+        if in_task:pass
+        else:      	set_in_task()
 
     def mistake_button():
         setattr(mistake_text, 'enabled', False)
         setattr(mistake, 'enabled', False)
 
-
     def thank_button():
         setattr(thanking, 'enabled', False)
         setattr(thank, 'enabled', False)
-   
-   
+
     text_size = NPC_Talk.world_scale
     button1_pos = ((NPC_Talk.position.x - text_size.x / 2 + .25)
                    * 0.03, (NPC_Talk.position.y - text_size.y / 2 - .05)*0.01)
     button2_pos = ((NPC_Talk.position.x + text_size.x / 2 - .25)
                    * 0.03, (NPC_Talk.position.y - text_size.y / 2 - .05)*0.01)
-
 
     agree.text = "Ok!"
     agree.scale = (.3, .1)
@@ -229,13 +221,11 @@ def npc_action():
     agree.position = button1_pos
     agree.on_click = Func(disable_talk)
 
-
     disagree.text = "No"
     disagree.scale = (.3, .1)
     disagree.text_entity.scale = (0.16666, 0.5)
     disagree.position = button2_pos
     disagree.on_click = Func(setattr, NPC_Talk, 'enabled', False)
-
 
     mistake.scale = (.3, .1)
     mistake.text_entity.scale = (0.16666, 0.5)
@@ -243,18 +233,24 @@ def npc_action():
     	(button1_pos[0] + button2_pos[0]) / 2), ((button1_pos[1] + button2_pos[1]) / 2)
     mistake.on_click = Func(mistake_button)
 
-
     thank.scale = (.3, .1)
     thank.text_entity.scale = (0.16666, 0.5)
     thank.position = (
     	(button1_pos[0] + button2_pos[0]) / 2), ((button1_pos[1] + button2_pos[1]) / 2)
     thank.on_click = Func(thank_button)
 
-
-
     if player.position.x >= npc.position.x - 4 and player.position.x <= npc.position.x + 4 and player.position.z >= npc.position.z - 4 and player.position.z <= npc.position.z + 4:
-        
+
         if in_task == False:
+            #if the current level is one, give water to the inventory
+            if int(get_config("level")) == 1:
+                inventory.pick_up("Salt Water")
+                inventory.update()
+                inventory.store()
+            elif int(get_config('level')) == 2:
+                inventory.pick_up("Al")
+                inventory.update()
+                inventory.store()
 
             NPC_Talk.background = True
             NPC_Talk.enabled = True
@@ -262,7 +258,8 @@ def npc_action():
             agree.enabled = True
             disagree.enabled = True
 
-            thread = threading.Thread(target=speak_text, args=(unformat(NPC_Talk.text),))
+            thread = threading.Thread(
+            	target=speak_text, args=(unformat(NPC_Talk.text),))
             thread.start()
 
         elif in_task == True and holding.get_object() != chemical:
@@ -281,7 +278,8 @@ def npc_action():
 
             ammend_config("money", str(int(get_config("money")) + reward))
             ammend_config("level", str(int(get_config("level"))+1))
-            ammend_config("completed_level", str(int(get_config("completed_level"))+1))
+            ammend_config("completed_level", str(
+            	int(get_config("completed_level"))+1))
 
             update_level()
 
@@ -290,16 +288,88 @@ def npc_action():
 
 npc = Entity(
     model=load_model("npc.glb"),
-    position=(10, .25, 15),
+    position=(35, 0, 38),
     scale=1.75,
     rotation=(0, 0, 0),
     collider='box',
     on_click=npc_action)
 
 
-for z in range(30):
-    for x in range(30):
-        voxel = Voxel(position=(x, 0, z))
+def grind():
+    #take holding object, if AL then after popup saying "you powderized the aluminum" then add powderized aluminum to inventory and remove aluminum from inventory
+
+    if holding.get_object() == "Al":
+        central_text.text = "You powderised the alumiunum \nCheck your inventory!"
+        central_text.background = True
+        central_text.enabled = True
+        #invoke  turn off central_text
+        invoke(setattr, central_text, 'enabled', False, delay=3)
+        inventory.drop("Al")
+        inventory.pick_up("Powderised Al")
+    else:
+        central_text.text = "You can't grind this!"
+        central_text.background = True
+        central_text.enabled = True
+        #invoke  turn off central_text
+        invoke(setattr, central_text, 'enabled', False, delay=3)
+
+
+def boiling():
+    #take holding object, if its salt water, then after popup saying "you boiled the salt water" then add salt to inventory and remove salt water from inventory
+
+    if holding.get_object() == "Salt Water":
+        central_text.text = "You boiled the salt water \nCheck your inventory!"
+        central_text.background = True
+        central_text.enabled = True
+        #invoke  turn off central_text
+        invoke(setattr, central_text, 'enabled', False, delay=3)
+        inventory.drop("Salt Water")
+        inventory.pick_up("NaCl")
+
+    else:
+        central_text.text = "You can't boil this!"
+        central_text.background = True
+        central_text.enabled = True
+        #invoke  turn off central_text
+        invoke(setattr, central_text, 'enabled', False, delay=3)
+
+
+def take_box():
+    #add holding object to inventory, make the entity invisible (box)
+    #Box of NaHCO3
+    inventory.pick_up("Box of NaHCO3")
+    box.enabled = False
+
+
+
+
+grinder = Entity(
+    model=load_model("flour_grinder.glb"),
+    position=(0, 0, 7.8),
+    scale=0.0175,
+    rotation=(0, 180, 0),
+    collider='box',
+    on_click=grind)
+
+boiling_pot = Entity(
+    model=load_model("cookingpot.glb"),
+    position=(10, 0, 40),
+    scale=0.2,
+    rotation=(0, 180, 0),
+    collider='box',
+    on_click=boiling)
+
+box = Entity(
+    model=load_model("crate_box.glb"),
+    position=(10, 0, -10),
+    scale=0.02,
+    rotation=(0, 180, 0),
+    collider='box',
+    on_click=take_box)
+
+
+
+
 
 
 task, reward, chemical, hint = str, str,str,str
@@ -329,6 +399,9 @@ hand = Hand()
 holding = Holding_Object()
 inventory = Inventory()
 
+model = load_model("base.obj")
+modell = Entity(model=model, position=(10, 0, 10), scale=1,
+                rotation=(0, 0, 0), collider='mesh')
 
 def input(key):
     if key == 'tab':
@@ -342,6 +415,8 @@ def input(key):
 
             hint_popup.text = "Press H to hind the hint!"
             hint_text.text = hint
+            hint_text.background = False
+            hint_text.background = True
             hint_text.enabled = True
 
         elif hint_text.enabled == True:
