@@ -62,7 +62,7 @@ def set_quest(money_text, objective_text, level, NPC_Talk):
 def play_loop_music():
     pygame.init()
     pygame.mixer.init()
-    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.set_volume(0.15)
     pygame.mixer.music.load("assets/loopabledown.mid")
     pygame.mixer.music.play(-1)
 

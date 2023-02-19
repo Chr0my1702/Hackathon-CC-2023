@@ -426,6 +426,6 @@ def input(key):
             hint_text.enabled = False
 
 #full screen
-#window.fullscreen = True
+window.fullscreen = True
 inisialise()
 app.run()

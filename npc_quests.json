@@ -8,7 +8,7 @@
   {
     "npc_task": "I'm planning on making my own fireworks for the 4th of July. Check what I gave you and can you get me some aluminum powder and 300 ducats should cover it.",
     "reward": 300,
-    "chemical": "Powderised Al",  
+    "chemical": "Powderised Al",
     "hint": "He gave you aluminum foil. You can find the machine at the back of some house."
   },
   {
@@ -22,5 +22,23 @@
     "reward": 50,
     "chemical": "C2H5OH",
     "hint": "Distill the alcohol from the moonshine. You can find the distiller at the back of the bar"
+  },
+  {
+    "npc_task": "I want to try making some natural dye for my clothes. Can you get me some indigo powder for 250 ducats?",
+    "reward": 250,
+    "chemical": "Indigo powder",
+    "hint": "You can find indigo powder at the local organic store. Look for the aisle with the natural dyes."
+  },
+  {
+    "npc_task": "I'm making homemade soap and I'm in need of some potassium hydroxide. Can you get me a small container for 200 ducats?",
+    "reward": 200,
+    "chemical": "KOH",
+    "hint": "Look for a chemical supply store. They should have potassium hydroxide in a small container."
+  },
+  {
+    "npc_task": "Rrrrhhh! Your presence is starting to annoy me. Sorry, I am bipolar… I need my medicine. Make some lithium carbonate! I need it. Please. 300 ducats! No! 600 ducats! 600!",
+    "reward": 600,
+    "chemical": "Li2CO3",
+    "hint": "You can synthesize lithium carbonate from lithium chloride and sodium carbonate. Look for these chemicals at a chemical supply store or a laboratory."
   }
 ]
