@@ -28,3 +28,5 @@ Note: If you get a PermissionError when trying to play the speech, make sure to 
 ![image](https://user-images.githubusercontent.com/49107678/218857225-86b98c64-644a-43e9-8f5d-0219aafdea96.png)
 18/02
 ![image](https://user-images.githubusercontent.com/49107678/219955147-6e01c57c-cb28-4723-b7fb-a879a805030e.png)
+19/02
+![image](https://user-images.githubusercontent.com/49107678/219955194-2e79d34e-2307-49b5-81d3-e008af2e1dcb.png)
