@@ -3,8 +3,6 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from funcs import *
 from config_handler import *
-import inspect
-
 app = Ursina()
 textures = {
     'sky': load_texture('assets/mid_day.tiff'),
